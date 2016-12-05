@@ -18,6 +18,9 @@ var videoVolume = document.querySelector('#volume .value');
 var min = 10;
 var max = 100;
 var sensitivity = 2;
+var calibrate_volume = 20;
+var calibrate_input = 0;
+var calibrate = false;
 
 try {
   window.AudioContext = window.AudioContext || window.webkitAudioContext;
@@ -44,17 +47,22 @@ function handleSuccess(stream) {
     }
 
     setInterval(function() {
-    
+
+      var averagevol = (soundMeter.slow * sensitivity).toFixed(2);
+
+      if (calibrate) {
+        calibrate_input = averagevol;
+        calibrate = false;
+      }
+
       $("#instantvol").text((soundMeter.instant * sensitivity).toFixed(2));
-      $("#averagevol").text((soundMeter.slow * sensitivity).toFixed(2));
+      $("#averagevol").text(averagevol);
 
+      videoVolume.innerText = changeVolume(calibrate_volume + (100)*(soundMeter.instant.toFixed(2) - calibrate_input)*sensitivity);
 
-
-      
-      videoVolume.innerText = changeVolume(0 + (100)*soundMeter.instant.toFixed(2)*sensitivity);
-  
     }, 200);
   });
+
 }
 
 function handleError(error) {
@@ -101,7 +109,7 @@ function onPlayerReady(event) {
 //    the player should play for six seconds and then stop.
 
 function onPlayerStateChange(event) {
-  
+
 }
 function stopVideo() {
   player.stopVideo();
@@ -114,7 +122,7 @@ function changeVolume(x){
   else if(x < min){
     x = min;
   }
-  
+
   player.setVolume(x);
 
   return x.toFixed(0);
@@ -124,18 +132,22 @@ function changeVolume(x){
 $(document).ready(function(){
     $("#min").click(function(){
         min = $("#test").val() / 1;
-        console.log(min);
+        //console.log(min);
     });
 
     $("#max").click(function(){
         max = $("#maxval").val() / 1;
-        console.log(max);
+        //console.log(max);
     });
 
     $("#sens").click(function(){
         sensitivity = $("#sensitivity").val() / 1;
-        console.log(sensitivity);
+        //console.log(sensitivity);
+    });
+
+    $("#cal").click(function(){
+        calibrate_volume = $("#calvol").val() / 1;
+        calibrate = true;
+        //console.log(calibrate_volume);
     });
 });
-
-
