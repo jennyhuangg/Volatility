@@ -125,6 +125,11 @@ margin: 0 auto 0 auto;
 max-width: 40em;
 }
 
+div#container2 {
+max-width: 100em;
+margin: 0 auto 0 auto;
+}
+
 div#links {
 	padding: 0.5em 0 0 0;
 }
