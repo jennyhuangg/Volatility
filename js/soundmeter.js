@@ -20,7 +20,10 @@ function SoundMeter(context) {
   this.clip = 0.0;
   this.script = context.createScriptProcessor(2048, 1, 1);
   var that = this;
+
+  // Whenever some type of audio input is detected
   this.script.onaudioprocess = function(event) {
+    // Length of input corresponds to the amplitude of sound input
     var input = event.inputBuffer.getChannelData(0);
     var i;
     var sum = 0.0;
@@ -32,7 +35,7 @@ function SoundMeter(context) {
       }
     }
     that.instant = Math.sqrt(sum / input.length);
-    that.slow = 0.95 * that.slow + 0.05 * that.instant;
+    that.slow = 0.995 * that.slow + 0.005 * that.instant;
     that.clip = clipcount / input.length;
   };
 }

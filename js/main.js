@@ -10,13 +10,10 @@
 
 'use strict';
 
-var instantMeter = document.querySelector('#instant meter');
-var slowMeter = document.querySelector('#slow meter');
-var clipMeter = document.querySelector('#clip meter');
+
 
 var instantValueDisplay = document.querySelector('#instant .value');
 var slowValueDisplay = document.querySelector('#slow .value');
-var clipValueDisplay = document.querySelector('#clip .value');
 
 try {
   window.AudioContext = window.AudioContext || window.webkitAudioContext;
@@ -42,12 +39,11 @@ function handleSuccess(stream) {
       return;
     }
     setInterval(function() {
-      instantMeter.value = instantValueDisplay.innerText =
+      instantValueDisplay.innerText =
           soundMeter.instant.toFixed(2);
-      slowMeter.value = slowValueDisplay.innerText =
+      slowValueDisplay.innerText =
           soundMeter.slow.toFixed(2);
-      clipMeter.value = clipValueDisplay.innerText =
-          soundMeter.clip;
+  
     }, 200);
   });
 }
