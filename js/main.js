@@ -47,8 +47,8 @@ function handleSuccess(stream) {
     }
 
     setInterval(function() {
-
       var averagevol = (soundMeter.slow * sensitivity).toFixed(2);
+      var new_volume = calibrate_volume + (100)*(soundMeter.instant.toFixed(2) - calibrate_input)*sensitivity;
 
       if (calibrate) {
         calibrate_input = averagevol;
@@ -57,8 +57,10 @@ function handleSuccess(stream) {
 
       $("#instantvol").text((soundMeter.instant * sensitivity).toFixed(2));
       $("#averagevol").text(averagevol);
+      //move(averagevol);
+      $('.progress-bar').css('width', "" + new_volume+ "%").attr('aria-valuenow', new_volume);
 
-      videoVolume.innerText = changeVolume(calibrate_volume + (100)*(soundMeter.instant.toFixed(2) - calibrate_input)*sensitivity);
+      videoVolume.innerText = changeVolume(new_volume);
 
     }, 200);
   });
@@ -151,3 +153,15 @@ $(document).ready(function(){
         //console.log(calibrate_volume);
     });
 });
+
+// Progress Bar
+
+function move(averagevol) {
+    var elem = document.getElementById("myBar");
+    width = averagevol;
+    var id = setInterval(frame, 10);
+    function frame() {
+        elem.style.width = width;
+        document.getElementById("label").innerHTML = width * 1;
+    }
+}
