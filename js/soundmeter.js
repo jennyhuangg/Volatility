@@ -36,7 +36,6 @@ function SoundMeter(context) {
     }
     that.instant = Math.sqrt(sum / input.length);
     that.slow = 0.995 * that.slow + 0.005 * that.instant;
-    that.clip = clipcount / input.length;
   };
 }
 
