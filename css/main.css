@@ -17,9 +17,6 @@ meter {
   width: 50%;
 }
 
-meter#clip {
-  color: #db4437;
-}
 
 meter#slow {
 color: #f4b400;

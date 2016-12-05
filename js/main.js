@@ -15,6 +15,9 @@
 var instantValueDisplay = document.querySelector('#instant .value');
 var slowValueDisplay = document.querySelector('#slow .value');
 var videoVolume = document.querySelector('#volume .value');
+var min = 10;
+var max = 100;
+var sensitivity = 2;
 
 try {
   window.AudioContext = window.AudioContext || window.webkitAudioContext;
@@ -41,13 +44,14 @@ function handleSuccess(stream) {
     }
 
     setInterval(function() {
-      instantValueDisplay.innerText =
-          soundMeter.instant.toFixed(2);
-      slowValueDisplay.innerText =
-          soundMeter.slow.toFixed(2);
+    
+      $("#instantvol").text((soundMeter.instant * sensitivity).toFixed(2));
+      $("#averagevol").text((soundMeter.slow * sensitivity).toFixed(2));
 
-      changeVolume(100*soundMeter.instant.toFixed(2));
-      videoVolume.innerText = 100*soundMeter.instant.toFixed(2);
+
+
+      
+      videoVolume.innerText = changeVolume(0 + (100)*soundMeter.instant.toFixed(2)*sensitivity);
   
     }, 200);
   });
@@ -75,9 +79,11 @@ firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 var player;
 function onYouTubeIframeAPIReady() {
   player = new YT.Player('player', {
-    height: '390',
-    width: '640',
-    videoId: 'M7lc1UVf-VE',
+    height: 0.609375*screen.width / 1.5,
+    width: screen.width / 1.5,
+    // height: 390,
+    // width: 640,
+    videoId: 'GPG3zSgm_Qo',
     events: {
       'onReady': onPlayerReady,
       'onStateChange': onPlayerStateChange
@@ -100,7 +106,36 @@ function onPlayerStateChange(event) {
 function stopVideo() {
   player.stopVideo();
 }
+
 function changeVolume(x){
+  if(x > max){
+    x = max;
+  }
+  else if(x < min){
+    x = min;
+  }
+  
   player.setVolume(x);
+
+  return x.toFixed(0);
 }
+
+
+$(document).ready(function(){
+    $("#min").click(function(){
+        min = $("#test").val() / 1;
+        console.log(min);
+    });
+
+    $("#max").click(function(){
+        max = $("#maxval").val() / 1;
+        console.log(max);
+    });
+
+    $("#sens").click(function(){
+        sensitivity = $("#sensitivity").val() / 1;
+        console.log(sensitivity);
+    });
+});
+
 

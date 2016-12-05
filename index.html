@@ -8,6 +8,15 @@
  *  tree.
 -->
 <html>
+<!-- Includes JQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
 <head>
 
   <meta charset="utf-8">
@@ -26,29 +35,32 @@
 
 <body>
 
+  <div id="header">
+    <h1> DOUG IS A TOTAL FS</h1>
+  </div>
+
+
+  <h3>
   <div id="container">
+    <div class="row">
+      <div id="instant" class="col-sm-6">
+        <center><p>Current Volume: </p></center>
+        <p id="instantvol" class="text-center">0</p>
 
-    <div id="header">
-      <h1> <span>DOUG IS A TOTAL FS</span></h1>
-      <img src="img/doug.png"/>
+      </div>
+
+      <div id="slow" class="col-sm-6">
+        <center><p>Average Volume: </p></center>
+        <p id="averagevol" class="text-center">0</p>
+      </div>
     </div>
-    <div id="instant">
-      <p>Your current volume is: </p>
-      <div class="value"></div>
-    </div>
+  </div>
+  </h3>
 
-    <div id="slow">
-      <p>Your average volume for the past 10 seconds is: </p>
-      <div class="value"></div>
-    </div>
-
-
-
-    <!-- Embedding soundcloud -->
-   <!--  <iframe allowtransparency="true" scrolling="no" frameborder="no" src="https://w.soundcloud.com/icon/?url=http%3A%2F%2Fsoundcloud.com%2Fundefined&color=orange_white&size=32" style="width: 32px; height: 32px;"></iframe>
- -->
     <!-- Embedding Youtube -->
-    <div id="player"></div>
+    <div class="col-md-12">
+    <center><div id="player"></div></center>
+    </div>
 
 
     <div id="volume">
@@ -77,8 +89,31 @@
     </div> -->
 
 
+<!--   <div class="progress">
+  <div class="progress-bar" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width:50%">
+    <span class="sr-only">70% Complete</span>
   </div>
+  </div> -->
 
+  <div id="container">
+    <center>
+    <div class="col-md-4">
+      <p>Set Minimum Volume: <input type="text" id="test" value="10" class="text-center"></p>
+      <button id="min">Set Value</button>
+    </div>
+
+    <div class="col-md-4">
+      <p>Set Maximum Volume: <input type="text" id="maxval" value="100" class="text-center"></p>
+      <button id="max">Set Value</button>
+    </div>
+
+    <div class="col-md-4">
+      <p>Set Sensitivity: <input type="text" id="sensitivity" value="1.0" class="text-center"></p>
+      <button id="sens">Set Value</button>
+    </div>
+    </center>
+
+  </div>
 
   <script src="jsreferences/adapter.js"></script>
   <script src="jsreferences/common.js"></script>
