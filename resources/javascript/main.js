@@ -15,7 +15,7 @@ var min = 10;
 var max = 100;
 
 // The sensitivity value, a scaling factor that adjusts user amplitude. Defaults to 2.5
-var sensitivity = 2.5;
+var sensitivity = 1.0;
 
 // True if focus mode is on, false otherwise.
 var mode = true;
@@ -28,6 +28,8 @@ var calibrate_output = 20;
 
 // True if newly calibrated. False otherwise.
 var calibrated = false;
+
+var stream;
 
 // Attempts to initialize audio input. Returns an error if unsuccessful.
 // ============================================================================================================ //
@@ -87,7 +89,7 @@ function handleSuccess(stream) {
       // New output volume given input volume.
       var new_volume;
       // Calculated increment to adjust volume.
-      var increment = 100 * (averagevol - calibrate_input) * sensitivity;
+      var increment = 100 * (averagevol - calibrate_input) * sensitivity * 2.5;
 
       // Changes output volume based on mode.
       if (mode) {
@@ -108,7 +110,7 @@ function handleSuccess(stream) {
       // Updates volume progress bar with new volume.
       $('.progress-bar').css('width', "" + new_volume+ "%").attr('aria-valuenow', new_volume);
 
-    }, 400);
+    }, 200);
   });
 }
 
@@ -117,8 +119,24 @@ function handleError(error) {
   console.log('navigator.getUserMedia error: ', error);
 }
 
-navigator.mediaDevices.getUserMedia(constraints).
+
+// start analyzing mic input
+stream = navigator.mediaDevices.getUserMedia(constraints).
     then(handleSuccess).catch(handleError);
+
+// determine which mode is used
+$('#mode:checked').change(
+    function(){
+        if ($(this).is(':checked')) {
+          // start analyzing mic input
+          navigator.mediaDevices.getUserMedia(constraints).
+              then(handleSuccess).catch(handleError);
+        }
+        else {
+
+        }
+});
+
 
 
 // Functions used throughout the rest of the program.
