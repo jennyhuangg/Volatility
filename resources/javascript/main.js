@@ -17,14 +17,19 @@ var max = 100;
 // The sensitivity value, a scaling factor that adjusts user amplitude. Defaults to 2.5
 var sensitivity = 2.5;
 
-// Variable that determines what mode the user is in.
+// True if focus mode is on, false otherwise.
 var mode = true;
 
-var calibrate_volume = 20;
+// The input volume at time of calibration. Defaults to 0.
 var calibrate_input = 0;
-var calibrate = false;
 
-// Attempts to initialize audio input. Returns an error if unsuccessful
+// The output volume specified by user at time of calibration. Defaults to 20.
+var calibrate_output = 20;
+
+// True if newly calibrated. False otherwise.
+var calibrated = false;
+
+// Attempts to initialize audio input. Returns an error if unsuccessful.
 // ============================================================================================================ //
 
 try {
@@ -43,7 +48,7 @@ var constraints = window.constraints = {
   video: false
 };
 
-// Runs if the stream is successfully created
+// Runs if the stream is successfully created.
 // ============================================================================================================ //
 
 function handleSuccess(stream) {
@@ -59,47 +64,52 @@ function handleSuccess(stream) {
 
     setInterval(function() {
 
-      // Sets the queried variables to the detected input amplitude
-      $("#instantvol").text((soundMeter.instant * sensitivity).toFixed(2));
-      // Finds the average volume and sets the corresponding variable
-      var averagevol = $("#averagevol").text((soundMeter.slow * sensitivity).toFixed(2));
+      // Sets the queried variables to the detected input amplitude.
+      $("#instantvol").text((soundMeter.instant).toFixed(2));
+      // Finds the average volume and sets the corresponding variable.
+      var averagevol = (soundMeter.slow).toFixed(2);
+      $("#averagevol").text(averagevol);
 
-      var new_volume = calibrate_volume + (100)*(soundMeter.instant.toFixed(2) - calibrate_input)*sensitivity;
-
-      if (calibrate) {
+      // Updates calibrated average input volume if newly calibrated.
+      if (calibrated) {
         calibrate_input = averagevol;
-        calibrate = false;
+        calibrated = false;
       }
 
-
-
-      if(mode)
-      {
-          // Changes volume based on input
-        $('#volume .value').innerText = changeVolume(0 + (100)*soundMeter.slow.toFixed(2)*sensitivity);
-      }
-      else
-      {
-        $('#volume .value').innerText = changeVolume(50 - (100)*soundMeter.slow.toFixed(2)*sensitivity);
-      }
-
-      // Adjusts the value of mode based on toggle
-      if ($("#mode:checked").val() == "on")
-      {
+      // Adjusts the mode based on toggle.
+      if ($("#mode:checked").val() == "on") {
         mode = true;
       }
-      else
-      {
+      else {
         mode = false;
       }
 
+      // New output volume given input volume.
+      var new_volume;
+      // Calculated increment to adjust volume.
+      var increment = 100 * (averagevol - calibrate_input) * sensitivity;
+
+      // Changes output volume based on mode.
+      if(mode) {
+        // As average input volume increases, output volume increases.
+        new_volume = changeVolume(calibrate_output + increment);
+      }
+      else {
+        // As average input volume increases, output volume decreases.
+        new_volume = changeVolume(calibrate_output - increment);
+      }
+
+      // Updates text for new volume.
+      $('#volume').text(new_volume);
+
+      // Updates volume progress bar with new volume.
       $('.progress-bar').css('width', "" + new_volume+ "%").attr('aria-valuenow', new_volume);
 
     }, 200);
   });
 }
 
-// If audio detection is not properly created
+// If audio detection is not properly created.
 function handleError(error) {
   console.log('navigator.getUserMedia error: ', error);
 }
@@ -147,51 +157,46 @@ navigator.mediaDevices.getUserMedia(constraints).
 //   player.stopVideo();
 // }
 
-// Functions used throughout the rest of the program
+// Functions used throughout the rest of the program.
 // ============================================================================================================ //
 
-// Changes the output volume based on a user input
-function changeVolume(x){
-  // Accounts for the max and minimum thresholds
-  if(x > max)
-  {
-    x = max;
+// Ensures output volume is within thresholds and rounded.
+function changeVolume(vol) {
+  if (vol > max) {
+    vol = max;
   }
-
-  else if(x < min)
-  {
-    x = min;
+  else if (vol < min) {
+    vol = min;
   }
 
   // Changes actual player volume
   //player.setVolume(x);
 
-  // Limits output to an integer value
-  return x.toFixed(0);
+  // Limits output to an integer value.
+  return vol.toFixed(0);
 }
 
-// Adjusts values based on user inputs
+// Adjusts values based on user inputs.
 $(document).ready(function(){
     $("#min").click(function(){
-        // Changes the minimum volume
-        min = $("#test").val() / 1;
-        console.log(min);
+        // Changes the minimum volume.
+        min = $("#minval").val() / 1;
     });
 
     $("#max").click(function(){
-        // Changes maximum volume
+        // Changes maximum volume.
         max = $("#maxval").val() / 1;
-        console.log(max);
     });
 
     $("#sens").click(function(){
-        // Changes the application sensitivity
+        // Changes the application sensitivity.
         sensitivity = $("#sensitivity").val() / 1;
-        console.log(sensitivity);
     });
+
     $("#cal").click(function(){
-        calibrate_volume = $("#calvol").val() / 1;
-        calibrate = true;
-        //console.log(calibrate_volume);
+        // Changes calibrated output and input volume.
+        calibrate_output = $("#calvol").val() / 1;
+        calibrated = true;
+        //console.log(calibrate_output);
     });
 });

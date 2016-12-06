@@ -44,7 +44,6 @@ text-decoration: underline;
 a#viewSource {
 display: block;
 margin: 1.3em 0 0 0;
-border-top: 1px solid #999;
 padding: 1em 0 0 0;
 }
 
@@ -135,7 +134,6 @@ div#links {
 }
 
 h1 {
-border-bottom: 1px solid #ccc;
 font-family: 'Roboto', sans-serif;
 font-weight: 500;
 margin: 0 0 0.8em 0;
@@ -151,7 +149,6 @@ margin: 0 0 0.8em 0;
 }
 
 h3 {
-border-top: 1px solid #eee;
 color: #666;
 font-weight: 500;
 margin: 10px 0 10px 0;
@@ -259,5 +256,3 @@ video {
     font-size: 20px;
   }
 }
-
-
