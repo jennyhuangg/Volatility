@@ -27,7 +27,7 @@ div#errorMsg p {
 body {
   font-family: 'Roboto', sans-serif;
   font-weight: 300;
-  /*background: url(../img/bg.jpg);*/
+  background: url(../images/background.jpg);
 }
 
 a {
@@ -68,10 +68,6 @@ h1 a {
 font-weight: 300;
 margin: 0 10px 0 0;
 white-space: nowrap;
-}
-
-audio {
-max-width: 100%;
 }
 
 body {
@@ -138,6 +134,7 @@ font-family: 'Roboto', sans-serif;
 font-weight: 500;
 margin: 0 0 0.8em 0;
 padding: 0 0 0.2em 0;
+color: #616068;
 }
 
 h2 {

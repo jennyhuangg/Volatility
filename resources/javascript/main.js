@@ -123,7 +123,7 @@ function handleError(error) {
 
 // unfocus mode function
 function unfocus() {
-  start analyzing for human input
+  //start analyzing for human input
   var recognition = new webkitSpeechRecognition();
   recognition.continuous = true;
   recognition.onresult = function(event) {
