@@ -8,18 +8,6 @@
  *  tree.
 -->
 <html>
-<!-- Includes JQuery -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-
-<!-- Latest compiled JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-<!-- Include script for pretty toggles -->
-<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
-<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
 
 <head>
 
@@ -32,15 +20,25 @@
 
   <title>Ambient Noise Adjustment</title>
 
-  <link rel="stylesheet" href="cssreference/main.css" />
-  <link rel="stylesheet" href="css/main.css" />
+  <link rel="stylesheet" href="resources/css/mainreference.css" />
+  <link rel="stylesheet" href="resources/css/main.css" />
+  <!-- Includes JQuery -->
+  <script src="resources/javascript/jquery.js"></script>
+  <!-- Latest bootstrap compiled and minified CSS -->
+  <link rel="stylesheet" href="resources/bootstrap/bootstrap.css">
+  <!-- Latest bootstrap compiled JavaScript -->
+  <script src="resources/bootstrap/bootstrap.js"></script>
+  <!-- Include bootstrap css and script for pretty toggles -->
+  <link href="resources/bootstrap/bootstrap_toggle.css" rel="stylesheet">
+  <script src="resources/bootstrap/bootstrap_toggle.js"></script>
+
 
 </head>
 
 <body>
 
   <div id="header">
-    <center><h1> DOUG IS A TOTAL FS</h1></center>
+    <center><h1>Ambient Noise Adjuster</h1></center>
   </div>
 
 
@@ -62,11 +60,6 @@
   </h3>
 
     <!-- Embedding Youtube -->
-    <div class="col-md-12">
-    <center><div id="player"></div></center>
-    </div>
-
-
     <div id="volume">
       <p>Your video volume is: </p>
       <div class="value"></div>
@@ -93,7 +86,7 @@
     </div> -->
 
 
-<!--   <div class="progress">
+  <!--   <div class="progress">
   <div class="progress-bar" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width:50%">
     <span class="sr-only">70% Complete</span>
   </div>
@@ -124,7 +117,7 @@
     </div>
 
     <div class="col-sm-2">
-      <p>Set Sensitivity (0 - 2.0): <input type="text" id="sensitivity" value="1.0" class="text-center"></p> 
+      <p>Set Sensitivity (0 - 2.0): <input type="text" id="sensitivity" value="1.0" class="text-center"></p>
       <button id="sens">Set Value</button>
     </div>
 
@@ -132,16 +125,14 @@
       <p>Current Ideal Volume: <input type="text" id="calvol" value="20" class="text-center"></p>
       <button id="cal">Calibrate</button>
     </div>
-    
+
     </center>
   </div>
   </div>
 
-  <script src="jsreferences/adapter.js"></script>
-  <script src="jsreferences/common.js"></script>
-  <script src="js/soundmeter.js"></script>
-  <script src="js/main.js"></script>
+  <script src="resources/javascript/soundmeter.js"></script>
+  <script src="resources/javascript/main.js"></script>
 
 
-</body>
-</html>
+  </body>
+  </html>

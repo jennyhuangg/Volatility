@@ -8,18 +8,13 @@
 // Declaration of global variables
 // ============================================================================================================ //
 
-// Queries various values that will be accessed by HTML
-var instantValueDisplay = document.querySelector('#instant .value');
-var slowValueDisplay = document.querySelector('#slow .value');
-var videoVolume = document.querySelector('#volume .value');
-
 // The minimum starting volume for the application. Defaults to 10%
 var min = 10;
 
 // The maximum starting volume, defaults to 100%
 var max = 100;
 
-// The sensitivity value, a scaling factor that adjusts user amplitude. Defaults to 2
+// The sensitivity value, a scaling factor that adjusts user amplitude. Defaults to 2.5
 var sensitivity = 2.5;
 
 // Variable that determines what mode the user is in.
@@ -29,11 +24,11 @@ var calibrate_volume = 20;
 var calibrate_input = 0;
 var calibrate = false;
 
-// Attempts to initialize audio input. Returns an error if unsuccessful                                         
+// Attempts to initialize audio input. Returns an error if unsuccessful
 // ============================================================================================================ //
 
 try {
-  // 
+  //
   window.AudioContext = window.AudioContext || window.webkitAudioContext;
   window.audioContext = new AudioContext();
 } catch (e) {
@@ -63,7 +58,7 @@ function handleSuccess(stream) {
     }
 
     setInterval(function() {
-      
+
       // Sets the queried variables to the detected input amplitude
       $("#instantvol").text((soundMeter.instant * sensitivity).toFixed(2));
       // Finds the average volume and sets the corresponding variable
@@ -81,11 +76,11 @@ function handleSuccess(stream) {
       if(mode)
       {
           // Changes volume based on input
-        videoVolume.innerText = changeVolume(0 + (100)*soundMeter.slow.toFixed(2)*sensitivity);
+        $('#volume .value').innerText = changeVolume(0 + (100)*soundMeter.slow.toFixed(2)*sensitivity);
       }
       else
       {
-        videoVolume.innerText = changeVolume(50 - (100)*soundMeter.slow.toFixed(2)*sensitivity);
+        $('#volume .value').innerText = changeVolume(50 - (100)*soundMeter.slow.toFixed(2)*sensitivity);
       }
 
       // Adjusts the value of mode based on toggle
@@ -93,7 +88,7 @@ function handleSuccess(stream) {
       {
         mode = true;
       }
-      else 
+      else
       {
         mode = false;
       }
@@ -112,45 +107,45 @@ function handleError(error) {
 navigator.mediaDevices.getUserMedia(constraints).
     then(handleSuccess).catch(handleError);
 
-// Youtube -- Code found on https://developers.google.com/youtube/iframe_api_reference
-// ============================================================================================================ //
-
-// This code loads the IFrame Player API code asynchronously.
-var tag = document.createElement('script');
-
-tag.src = "https://www.youtube.com/iframe_api";
-var firstScriptTag = document.getElementsByTagName('script')[0];
-firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-
-// This function creates an <iframe> (and YouTube player)
-// after the API code downloads.
-var player;
-function onYouTubeIframeAPIReady() {
-  player = new YT.Player('player', {
-    // Factors that scale to the user's computer screen length and width
-    height: 0.609375*screen.width / 1.5,
-    width: screen.width / 1.5,
-    // height: 390,
-    // width: 640,
-    videoId: 'GPG3zSgm_Qo',
-    events: {
-      'onReady': onPlayerReady,
-      'onStateChange': onPlayerStateChange
-    }
-  });
-}
-
-// The API will call this function when the video player is ready.
-function onPlayerReady(event) {
-  event.target.playVideo();
-}
-
-function onPlayerStateChange(event) {  }
-
-// Function that stops video from playing when called
-function stopVideo() {
-  player.stopVideo();
-}
+// // Youtube -- Code found on https://developers.google.com/youtube/iframe_api_reference
+// // ============================================================================================================ //
+//
+// // This code loads the IFrame Player API code asynchronously.
+// var tag = document.createElement('script');
+//
+// tag.src = "https://www.youtube.com/iframe_api";
+// var firstScriptTag = document.getElementsByTagName('script')[0];
+// firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+//
+// // This function creates an <iframe> (and YouTube player)
+// // after the API code downloads.
+// var player;
+// function onYouTubeIframeAPIReady() {
+//   player = new YT.Player('player', {
+//     // Factors that scale to the user's computer screen length and width
+//     height: 0.609375*screen.width / 1.5,
+//     width: screen.width / 1.5,
+//     // height: 390,
+//     // width: 640,
+//     videoId: 'GPG3zSgm_Qo',
+//     events: {
+//       'onReady': onPlayerReady,
+//       'onStateChange': onPlayerStateChange
+//     }
+//   });
+// }
+//
+// // The API will call this function when the video player is ready.
+// function onPlayerReady(event) {
+//   event.target.playVideo();
+// }
+//
+// function onPlayerStateChange(event) {  }
+//
+// // Function that stops video from playing when called
+// function stopVideo() {
+//   player.stopVideo();
+// }
 
 // Functions used throughout the rest of the program
 // ============================================================================================================ //
@@ -167,9 +162,9 @@ function changeVolume(x){
   {
     x = min;
   }
-  
+
   // Changes actual player volume
-  player.setVolume(x);
+  //player.setVolume(x);
 
   // Limits output to an integer value
   return x.toFixed(0);
@@ -200,5 +195,3 @@ $(document).ready(function(){
         //console.log(calibrate_volume);
     });
 });
-
-
