@@ -50,6 +50,8 @@ var constraints = window.constraints = {
   video: false
 };
 
+var interval = null;
+
 // Runs if the stream is successfully created.
 // ============================================================================================================ //
 
@@ -64,7 +66,7 @@ function handleSuccess(stream) {
       return;
     }
 
-    setInterval(function() {
+    interval = setInterval(function() {
 
       // Sets the queried variables to the detected input amplitude.
       $("#instantvol").text((soundMeter.instant).toFixed(2));
@@ -119,6 +121,18 @@ function handleError(error) {
   console.log('navigator.getUserMedia error: ', error);
 }
 
+// unfocus mode function
+function unfocus() {
+  //start analyzing for human input
+  var recognition = new webkitSpeechRecognition();
+  recognition.continuous = true;
+  recognition.onresult = function(event) {
+    console.log(event)
+  }
+  recognition.start();
+}
+
+
 
 // start analyzing mic input
 stream = navigator.mediaDevices.getUserMedia(constraints).
@@ -128,14 +142,11 @@ stream = navigator.mediaDevices.getUserMedia(constraints).
 $('#mode:checked').change(
     function(){
         if (!$(this).is(':checked')) {
-          // start analyzing for human input
-          var recognition = new webkitSpeechRecognition();
-          recognition.continuous = true;
-          recognition.interimResults = true;
-          recognition.onresult = function(event) {
-            console.log(event)
-          }
-          recognition.start();
+          clearInterval(interval);
+        }
+        else {
+          stream = navigator.mediaDevices.getUserMedia(constraints).
+              then(handleSuccess).catch(handleError);
         }
 });
 

@@ -25,9 +25,9 @@ div#errorMsg p {
 }
 
 body {
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Roboto';
   font-weight: 300;
-  /*background: url(../img/bg.jpg);*/
+  background: url(../images/background.jpg);
 }
 
 a {
@@ -68,10 +68,6 @@ h1 a {
 font-weight: 300;
 margin: 0 10px 0 0;
 white-space: nowrap;
-}
-
-audio {
-max-width: 100%;
 }
 
 body {
@@ -134,10 +130,11 @@ div#links {
 }
 
 h1 {
-font-family: 'Roboto', sans-serif;
+font-family: 'Infinity', sans-serif;
 font-weight: 500;
 margin: 0 0 0.8em 0;
 padding: 0 0 0.2em 0;
+color: #616068;
 }
 
 h2 {
@@ -225,34 +222,7 @@ textarea {
   font-family: 'Roboto', sans-serif;
 }
 
-video {
-  background: #222;
-  margin: 0 0 20px 0;
-  width: 100%;
-}
-
-@media screen and (max-width: 650px) {
-  .highlight {
-    font-size: 1em;
-    margin: 0 0 20px 0;
-    padding: 0.2em 1em;
-  }
-  h1 {
-    font-size: 24px;
-  }
-}
-
-@media screen and (max-width: 550px) {
-  button:active {
-    background-color: darkRed;
-  }
-  h1 {
-    font-size: 22px;
-  }
-}
-
-@media screen and (max-width: 450px) {
-  h1 {
-    font-size: 20px;
-  }
-}
+@font-face { 
+  font-family: Infinity; 
+  src: url(../fonts/'Raleway Thin.otf'); 
+} 

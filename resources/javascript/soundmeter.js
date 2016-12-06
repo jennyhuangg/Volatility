@@ -13,6 +13,26 @@
 // instantaneous and time-decaying volumes available for inspection.
 // It also reports on the fraction of samples that were at or near
 // the top of the measurement range.
+
+var queue = [];
+var timeLength = 5;
+
+for(var i = 0; i < timeLength * 1000 / 50; i++)
+{
+  queue.push(0);
+}
+
+// Calculates the average of a given array/queue
+function calculateAverage(array)
+{
+  var count = 0;
+  for(var x = 0; x < array.length; x++)
+  {
+    count += array[x];
+  }
+  return count/array.length;
+}
+
 function SoundMeter(context) {
   this.context = context;
   this.instant = 0.0;
@@ -36,7 +56,13 @@ function SoundMeter(context) {
     }
     that.instant = Math.sqrt(sum / input.length);
     // Calculates volume average from the past 2 seconds
-    that.slow = 0.95 * that.slow + 0.05 * that.instant;
+
+    // that.slow = 0.95 * that.slow + 0.05 * that.instant;
+    
+    queue.push(that.instant);
+    queue.shift();
+
+    that.slow = calculateAverage(queue);
   };
 }
 
