@@ -36,7 +36,7 @@ function SoundMeter(context) {
     }
     that.instant = Math.sqrt(sum / input.length);
     // Calculates volume average from the past 2 seconds
-    that.slow = 0.975 * that.slow + 0.025 * that.instant;
+    that.slow = 0.95 * that.slow + 0.05 * that.instant;
   };
 }
 

@@ -127,13 +127,15 @@ stream = navigator.mediaDevices.getUserMedia(constraints).
 // determine which mode is used
 $('#mode:checked').change(
     function(){
-        if ($(this).is(':checked')) {
-          // start analyzing mic input
-          navigator.mediaDevices.getUserMedia(constraints).
-              then(handleSuccess).catch(handleError);
-        }
-        else {
-
+        if (!$(this).is(':checked')) {
+          // start analyzing for human input
+          var recognition = new webkitSpeechRecognition();
+          recognition.continuous = true;
+          recognition.interimResults = true;
+          recognition.onresult = function(event) {
+            console.log(event)
+          }
+          recognition.start();
         }
 });
 
