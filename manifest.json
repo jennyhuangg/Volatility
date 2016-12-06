@@ -14,11 +14,12 @@
     "<all_urls>"
   ],
   "background": {
-    "scripts": ["background.js"]
+    "scripts": ["resources/javascript/background.js"]
   },
-  "web_accessible_resources": [
-    "js/*",
-    "css/*",
-    "cssreference/*"
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["resources/javascript/jquery.js", "resources/javascript/content_script.js"]
+    }
   ]
 }

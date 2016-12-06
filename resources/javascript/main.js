@@ -62,15 +62,17 @@ function handleSuccess(stream) {
       // Sets the queried variables to the detected input amplitude
       $("#instantvol").text((soundMeter.instant * sensitivity).toFixed(2));
       // Finds the average volume and sets the corresponding variable
-      var averagevol = $("#averagevol").text((soundMeter.slow * sensitivity).toFixed(2));
+      $("#averagevol").text((soundMeter.slow * sensitivity).toFixed(2));
 
-      var new_volume = calibrate_volume + (100)*(soundMeter.instant.toFixed(2) - calibrate_input)*sensitivity;
+      var newVolume = calibrate_volume + (100)*(soundMeter.instant.toFixed(2) - calibrate_input)*sensitivity;
+
+      // send message to extension
+      chrome.runtime.sendMessage(newVolume);
 
       if (calibrate) {
         calibrate_input = averagevol;
         calibrate = false;
       }
-
 
 
       if(mode)
@@ -93,9 +95,9 @@ function handleSuccess(stream) {
         mode = false;
       }
 
-      $('.progress-bar').css('width', "" + new_volume+ "%").attr('aria-valuenow', new_volume);
+      $('.progress-bar').css('width', "" + newVolume+ "%").attr('aria-valuenow', newVolume);
 
-    }, 200);
+    }, 400);
   });
 }
 
@@ -107,45 +109,6 @@ function handleError(error) {
 navigator.mediaDevices.getUserMedia(constraints).
     then(handleSuccess).catch(handleError);
 
-// // Youtube -- Code found on https://developers.google.com/youtube/iframe_api_reference
-// // ============================================================================================================ //
-//
-// // This code loads the IFrame Player API code asynchronously.
-// var tag = document.createElement('script');
-//
-// tag.src = "https://www.youtube.com/iframe_api";
-// var firstScriptTag = document.getElementsByTagName('script')[0];
-// firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-//
-// // This function creates an <iframe> (and YouTube player)
-// // after the API code downloads.
-// var player;
-// function onYouTubeIframeAPIReady() {
-//   player = new YT.Player('player', {
-//     // Factors that scale to the user's computer screen length and width
-//     height: 0.609375*screen.width / 1.5,
-//     width: screen.width / 1.5,
-//     // height: 390,
-//     // width: 640,
-//     videoId: 'GPG3zSgm_Qo',
-//     events: {
-//       'onReady': onPlayerReady,
-//       'onStateChange': onPlayerStateChange
-//     }
-//   });
-// }
-//
-// // The API will call this function when the video player is ready.
-// function onPlayerReady(event) {
-//   event.target.playVideo();
-// }
-//
-// function onPlayerStateChange(event) {  }
-//
-// // Function that stops video from playing when called
-// function stopVideo() {
-//   player.stopVideo();
-// }
 
 // Functions used throughout the rest of the program
 // ============================================================================================================ //
@@ -162,9 +125,6 @@ function changeVolume(x){
   {
     x = min;
   }
-
-  // Changes actual player volume
-  //player.setVolume(x);
 
   // Limits output to an integer value
   return x.toFixed(0);
@@ -194,4 +154,9 @@ $(document).ready(function(){
         calibrate = true;
         //console.log(calibrate_volume);
     });
+});
+
+// test
+document.addEventListener("hello", function(data) {
+    chrome.runtime.sendMessage("test");
 });
