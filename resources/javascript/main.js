@@ -121,32 +121,65 @@ function handleError(error) {
   console.log('navigator.getUserMedia error: ', error);
 }
 
-// unfocus mode function
-function unfocus() {
-  //start analyzing for human input
-  var recognition = new webkitSpeechRecognition();
-  recognition.continuous = true;
-  recognition.onresult = function(event) {
-    console.log(event)
-  }
-  recognition.start();
-}
-
-
-
 // start analyzing mic input
 stream = navigator.mediaDevices.getUserMedia(constraints).
     then(handleSuccess).catch(handleError);
 
+var recognition = new webkitSpeechRecognition();
+recognition.continuous = true;
+recognition.interimResults = true;
+
+// when speech that results in words is recognized
+var count = 0;
+recognition.onresult = function(event) {
+    console.log(count);
+    // only change volume if you have 10 recognized words
+    if (count == 10) {
+        var new_volume = min;
+        // send message to extension
+        chrome.runtime.sendMessage(new_volume);
+
+        // Updates text for new volume.
+        $('#volume').text(new_volume);
+
+        // Updates volume progress bar with new volume.
+        $('.progress-bar').css('width', "" + new_volume+ "%").attr('aria-valuenow', new_volume);
+
+        count = 0;
+    }
+    else {
+        count++;
+    }
+}
+// when speech is no longer recognized
+recognition.onspeechend = function() {
+    console.log("end");
+    var new_volume = calibrate_output;
+    // send message to extension
+    chrome.runtime.sendMessage(new_volume);
+
+    // Updates text for new volume.
+    $('#volume').text(new_volume);
+
+    // Updates volume progress bar with new volume.
+    $('.progress-bar').css('width', "" + new_volume+ "%").attr('aria-valuenow', new_volume);
+    count = 0;
+}
+
 // determine which mode is used
 $('#mode:checked').change(
     function(){
+        // if not focus mode, start speech recognition.
         if (!$(this).is(':checked')) {
-          clearInterval(interval);
+            clearInterval(interval);
+            recognition.start();
         }
+        // if not, stop speech recognition.
         else {
-          stream = navigator.mediaDevices.getUserMedia(constraints).
-              then(handleSuccess).catch(handleError);
+            console.log("abort");
+            recognition.abort();
+            stream = navigator.mediaDevices.getUserMedia(constraints).
+                  then(handleSuccess).catch(handleError);
         }
 });
 
