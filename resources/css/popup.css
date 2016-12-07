@@ -40,6 +40,8 @@ h2 {
   background-color: #F25753;
   color: white;
   border: none;
+  height: 30px;
+  border-radius: 3px;
 }
 
 .top-buffer {
