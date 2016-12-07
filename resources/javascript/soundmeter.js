@@ -15,7 +15,7 @@
 // the top of the measurement range.
 
 var queue = [];
-var timeLength = 5;
+var timeLength = 10;
 
 for(var i = 0; i < timeLength * 1000 / 50; i++)
 {
@@ -58,7 +58,7 @@ function SoundMeter(context) {
     // Calculates volume average from the past 2 seconds
 
     // that.slow = 0.95 * that.slow + 0.05 * that.instant;
-    
+
     queue.push(that.instant);
     queue.shift();
 
