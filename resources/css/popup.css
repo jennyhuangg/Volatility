@@ -22,6 +22,14 @@ h2 {
   text-align: right;
 }
 
+h3 {
+  min-width: 320px;
+  overflow-x: hidden;
+  font-family: "Avant Garde",Avantgarde,"Century Gothic",CenturyGothic,AppleGothic,sans-serif;
+  font-size: 16px;
+  color: #F25753;
+}
+
 #icon {
   width: 40px;
 }
