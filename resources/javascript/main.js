@@ -69,8 +69,8 @@ function handleSuccess(stream) {
       // Sets the queried variables to the detected input amplitude.
       $("#instantvol").text((soundMeter.instant).toFixed(2));
       // Finds the average volume and sets the corresponding variable.
-      var averagevol = (soundMeter.slow).toFixed(2);
-      $("#averagevol").text(averagevol);
+      var averageVol = (soundMeter.slow).toFixed(2);
+      $("#averagevol").text(averageVol);
 
       // Updates calibrated average input volume if newly calibrated.
       if (calibrated) {
