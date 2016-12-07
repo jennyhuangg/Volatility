@@ -1,127 +1,140 @@
 <!DOCTYPE html>
 <!--
- *  Copyright (c) 2016 Jake Cui
- *  Modified code of the WebRTC project authors. All Rights Reserved.
- *
- *  Use of this source code is governed by a BSD-style license
- *  that can be found in the LICENSE file in the root of the source
- *  tree.
+ *  Jake Cui, Doug Smith, Jenny Huang
+ *  CS50 Final Project: html for Volatility web app
 -->
 <html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1, maximum-scale=1">
 
-<head>
+    <title>Volatility</title>
 
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1, maximum-scale=1">
-  <meta name="mobile-web-app-capable" content="yes">
-  <meta id="theme-color" name="theme-color" content="#ffffff">
+    <!-- Includes JQuery -->
+    <script src="resources/javascript/jquery.js"></script>
+    <!-- Latest bootstrap compiled and minified CSS -->
+    <link rel="stylesheet" href="resources/bootstrap/bootstrap.css">
+    <!-- Latest bootstrap compiled JavaScript -->
+    <script src="resources/bootstrap/bootstrap.js"></script>
+    <!-- Include bootstrap css and script for pretty toggles -->
+    <link href="resources/bootstrap/bootstrap_toggle.css" rel="stylesheet">
+    <script src="resources/bootstrap/bootstrap_toggle.js"></script>
+    <!-- include our style sheets -->
+    <link rel="stylesheet" href="resources/css/mainreference.css" />
+    <link rel="stylesheet" href="resources/css/main.css" />
+  </head>
 
-  <base target="_blank">
-
-  <title>Volatility</title>
-
-  <!-- Includes JQuery -->
-  <script src="resources/javascript/jquery.js"></script>
-  <!-- Latest bootstrap compiled and minified CSS -->
-  <link rel="stylesheet" href="resources/bootstrap/bootstrap.css">
-  <!-- Latest bootstrap compiled JavaScript -->
-  <script src="resources/bootstrap/bootstrap.js"></script>
-  <!-- Include bootstrap css and script for pretty toggles -->
-  <link href="resources/bootstrap/bootstrap_toggle.css" rel="stylesheet">
-  <script src="resources/bootstrap/bootstrap_toggle.js"></script>
-
-  <link rel="stylesheet" href="resources/css/mainreference.css" />
-  <link rel="stylesheet" href="resources/css/main.css" />
-
-</head>
-
-<body>
-
-  <div class="container">
-
-    <h2><br><br><img src="resources/images/icon128.png" width="28" height="28" align = "top">
-       	&nbsp;VOLATILITY | </h2>
-</div>
-
-  <div class="row">
-    <!-- <div class="col-md-3"><img src="resources/images/icon128.png"/></div> -->
-    <div class="col-md-6"></div>
-    <!-- <div class="col-md-3" style="text-align: right;"><h1>Ambient Noise Adjuster &nbsp&nbsp</h1></div> -->
-  </div>
-
-  <div id="header">
-    <center><h1 style="color:#F25753"><br><br>Let your music adjust to you.</h1></center>
-  </div>
-
-  <div class="progress" id="progressbar">
-    <div class="progress-bar" role="progressbar"
-    aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
-    <font size = "0.0001"><p><br></font></p>
-    <font size = "4em"><div id="volume"></div></font>
+  <body>
+    <!-- top left header and logo -->
+    <div class="container">
+      <h2>
+        <br><br>
+        <img src="resources/images/icon128.png" width="28" height="28" align = "top">
+         &nbsp;VOLATILITY |
+      </h2>
     </div>
-  </div>
-<br><br>
-
-<div id="container2">
-
-</div>
-<br>
-<div id="container2">
-  <div class="row">
-    <center>
-    <!-- Creates a toggle that allows user to change from focus/talking mode -->
-    <div class="col-md-2 col-md-offset-1">
-      <div id="mode">
-        <center><p>Focus Mode<br></p></center>
-        <input type="checkbox" id="mode" checked data-toggle="toggle" data-onstyle="default">
+    <!-- middle slogan -->
+    <div id="header">
+      <center>
+        <h1 style="color:#F25753">
+          <br><br>
+          Let your music adjust to you.
+        </h1>
+      </center>
+    </div>
+    <!-- audio output amplitude bar -->
+    <div class="progress" id="progressbar">
+      <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+      <font size = "0.0001"><p><br></font></p>
+      <font size = "4em"><div id="volume"></div></font>
       </div>
     </div>
-
-    <div class="col-md-2">
-      <p>Minimum Volume<input type="text" id="minval" value="10" class="text-center"></p>
-      <button class="btn-danger" id="min">Set</button>
-    </div>
-
-    <div class="col-md-2">
-      <p>Maximum Volume<br> <input type="text" id="maxval" value="100" class="text-center"></p>
-      <button class="btn-danger" id="max">Set</button>
-    </div>
-
-    <div class="col-md-2">
-      <p>Sensitivity (0 - 2.0) <br><input type="text" id="sensitivity" value="1.0" class="text-center"></p>
-      <button class="btn-danger" id="sens">Set</button>
-    </div>
-
-    <div class="col-md-2">
-      <p>Desired Volume <br><input type="text" id="calvol" value="20" class="text-center"></p>
-      <button class="btn-danger" id="cal">Calibrate</button>
-    </div>
-  </center>
-  </div>
-
-</div>
-
-<br> <br>
-<div id="container">
-  <center>
-    <div class="row">
-
-      <div id="instant" class="col-sm-6">
-        <center><p>Current Input Volume</p></center>
-        <p id="instantvol" class="text-center">0</p>
+    <br><br><br>
+    <!-- settings -->
+    <div id="container2">
+      <div class="row">
+        <center>
+          <!-- Creates a toggle that allows user to change from focus/talking mode -->
+          <div class="col-md-2 col-md-offset-1">
+            <div id="mode">
+              <center>
+                <p>
+                  Mode<br>
+                </p>
+              </center>
+              <input type="checkbox" id="mode" checked data-toggle="toggle" data-on="Focus" data-off="Talking" data-onstyle="default">
+            </div>
+          </div>
+          <!-- input to set minimum volume -->
+          <div class="col-md-2">
+            <p>
+              Minimum Volume
+              <input type="text" id="minval" value="10" class="text-center">
+            </p>
+            <button class="btn-danger" id="min">
+              Set
+            </button>
+          </div>
+          <!-- input to set maximum volume -->
+          <div class="col-md-2">
+            <p>
+              Maximum Volume<br>
+              <input type="text" id="maxval" value="100" class="text-center">
+            </p>
+            <button class="btn-danger" id="max">
+              Set
+            </button>
+          </div>
+          <!-- input to set sensitivity -->
+          <div class="col-md-2">
+            <p>
+              Sensitivity (0 - 2.0) <br>
+              <input type="text" id="sensitivity" value="1.0" class="text-center">
+            </p>
+            <button class="btn-danger" id="sens">Set</button>
+          </div>
+          <!-- input to set desired volume -->
+          <div class="col-md-2">
+            <p>
+              Desired Volume <br>
+              <input type="text" id="calvol" value="20" class="text-center">
+            </p>
+            <button class="btn-danger" id="cal">Calibrate</button>
+          </div>
+        </center>
       </div>
-
-      <div id="slow" class="col-sm-6">
-        <center><p>Average Input Volume</p></center>
-        <p id="averagevol" class="text-center">0</p>
-      </div>
-
     </div>
-  </center>
-</div>
-
-  <script src="resources/javascript/soundmeter.js"></script>
-  <script src="resources/javascript/main.js"></script>
-
-</body>
+    <br><br>
+    <div id="container">
+      <center>
+        <div class="row">
+          <!-- current volume display -->
+          <div id="instant" class="col-sm-6">
+            <center>
+              <p>
+                Current Input Volume
+              </p>
+            </center>
+            <p id="instantvol" class="text-center">
+              0
+            </p>
+          </div>
+          <!--- average volume display -->
+          <div id="slow" class="col-sm-6">
+            <center>
+              <p>
+                Average Input Volume
+              </p>
+            </center>
+            <p id="averagevol" class="text-center">
+              0
+            </p>
+          </div>
+        </div>
+      </center>
+    </div>
+    <!-- link javascript files for mic input and volume calculation -->
+    <script src="resources/javascript/soundmeter.js"></script>
+    <script src="resources/javascript/main.js"></script>
+  </body>
 </html>

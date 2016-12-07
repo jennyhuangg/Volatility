@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
 
-  "name": "Ambient Noise Volume Adjuster",
+  "name": "Volatility",
   "description": "Automatically adjusts browser volume to accomodate ambient background noise",
   "version": "1.0",
 

@@ -1,9 +1,8 @@
 /*
- *  Copyright (c) 2016 Jake Cui, Doug Smith, and Jenny Huang
- *  Credits to the WebRTC project authors for API. All Rights Reserved.
+ *  Jake Cui, Doug Smith, and Jenny Huang
+ *  CS50 Final Project: javascript for Volatility webpage
+ *  Credits to the WebRTC project authors for API.
  */
-
-'use strict';
 
 // Declaration of global variables
 // ============================================================================================================ //
@@ -14,7 +13,7 @@ var min = 10;
 // The maximum starting volume, defaults to 100%
 var max = 100;
 
-// The sensitivity value, a scaling factor that adjusts user amplitude. Defaults to 2.5
+// The sensitivity value, a scaling factor that adjusts input mic amplitude. Defaults to 1.0
 var sensitivity = 1.0;
 
 // True if focus mode is on, false otherwise.
@@ -29,13 +28,11 @@ var calibrate_output = 20;
 // True if newly calibrated. False otherwise.
 var calibrated = false;
 
-var stream;
 
 // Attempts to initialize audio input. Returns an error if unsuccessful.
 // ============================================================================================================ //
 
 try {
-  //
   window.AudioContext = window.AudioContext || window.webkitAudioContext;
   window.audioContext = new AudioContext();
 } catch (e) {
@@ -50,9 +47,10 @@ var constraints = window.constraints = {
   video: false
 };
 
+// declare interval variable so we can stop taking mic input later on
 var interval = null;
 
-// Runs if the stream is successfully created.
+// Runs if the mic audio stream is successfully created.
 // ============================================================================================================ //
 
 function handleSuccess(stream) {
@@ -218,7 +216,6 @@ function changeVolume(vol) {
   else if (vol < min) {
     vol = min;
   }
-
   // Limits output to an integer value.
   return vol.toFixed(0);
 }
@@ -246,9 +243,4 @@ $(document).ready(function(){
         calibrated = true;
         //console.log(calibrate_output);
     });
-});
-
-// test
-document.addEventListener("hello", function(data) {
-    chrome.runtime.sendMessage("test");
 });
