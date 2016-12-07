@@ -132,9 +132,8 @@ recognition.interimResults = true;
 // when speech that results in words is recognized
 var count = 0;
 recognition.onresult = function(event) {
-    console.log(count);
     // only change volume if you have 10 recognized words
-    if (count == 10) {
+    if (count == 5) {
         var new_volume = min;
         // send message to extension
         chrome.runtime.sendMessage(new_volume);
@@ -153,7 +152,6 @@ recognition.onresult = function(event) {
 }
 // when speech is no longer recognized
 recognition.onspeechend = function() {
-    console.log("end");
     var new_volume = calibrate_output;
     // send message to extension
     chrome.runtime.sendMessage(new_volume);
@@ -164,6 +162,16 @@ recognition.onspeechend = function() {
     // Updates volume progress bar with new volume.
     $('.progress-bar').css('width', "" + new_volume+ "%").attr('aria-valuenow', new_volume);
     count = 0;
+    recognition.stop();
+}
+// restart timer
+recognition.onend = function(event) {
+    recognition.start();
+}
+
+// reset voice recognition
+function resetVoiceRecog() {
+    recognition.stop();
 }
 
 // determine which mode is used
@@ -173,11 +181,12 @@ $('#mode:checked').change(
         if (!$(this).is(':checked')) {
             clearInterval(interval);
             recognition.start();
+            // to curb 60s limit, reset every 10 s.
+            setInterval(resetVoiceRecog, 10000);
         }
         // if not, stop speech recognition.
         else {
-            console.log("abort");
-            recognition.abort();
+            recognition.stop();
             stream = navigator.mediaDevices.getUserMedia(constraints).
                   then(handleSuccess).catch(handleError);
         }
