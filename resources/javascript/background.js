@@ -1,6 +1,5 @@
 chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
     console.log(message);
-
     var newMessage = {vol: message}
     // need message to be sent to all tabs
     chrome.tabs.query({audible: true}, function(tabs) {

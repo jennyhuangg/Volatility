@@ -150,6 +150,19 @@ $('#mode:checked').change(
         }
 });
 
+// listen for message to turn off service
+chrome.runtime.onMessage.addListener(
+ function(request, sender) {
+  if (request.toggle === true) {
+    console.log(request.toggle);
+    stream = navigator.mediaDevices.getUserMedia(constraints).
+        then(handleSuccess).catch(handleError);
+  }
+  else if (request.toggle === false){
+    console.log(request.toggle);
+    clearInterval(interval);
+  }
+});
 
 
 // Functions used throughout the rest of the program.

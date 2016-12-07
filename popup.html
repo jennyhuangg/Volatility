@@ -1,15 +1,43 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <script src="resources/javascript/jquery.js"></script>
-    <link rel="stylesheet" href="resources/css/popup.css" />
 
+<html>
+
+  <head>
+    <!-- Includes JQuery -->
+    <script src="resources/javascript/jquery.js"></script>
+    <!-- Latest bootstrap compiled and minified CSS -->
+    <link rel="stylesheet" href="resources/bootstrap/bootstrap.css">
+    <!-- Latest bootstrap compiled JavaScript -->
+    <script src="resources/bootstrap/bootstrap.js"></script>
+    <!-- Include bootstrap css and script for pretty toggles -->
+    <link href="resources/bootstrap/bootstrap_toggle.css" rel="stylesheet">
+    <script src="resources/bootstrap/bootstrap_toggle.js"></script>
+    <link rel="stylesheet" href="resources/css/popup.css" />
   </head>
 
   <body>
-    <center><div><h1>Ambient Noise Adjuster</h1></div></center>
 
-    <center><button id="web">Open Web Page</button></center>
+    <div class="row">
+      <div class="col-xs-12 top-buffer"><center><h1>Volatility &nbsp <img id="icon" src="resources/images/icon128.png"/></h1></center></div>
+    </div>
+    <hr>
+    <div class="row">
+      <div class="col-xs-7 top-buffer"> <h2>Toggle On/Off:</h2></div>
+      <div class="col-xs-5 top-buffer1"><input type="checkbox" data-onstyle="danger" id="power" data-on="Enabled" data-off="Disabled" data-size="small" checked data-toggle="toggle"></div>
+    </div>
+    <hr>
+    <div class="row">
+      <div class="col-xs-2 top-buffer"></div>
+      <div class="col-xs-8 top-buffer"><center><h2 style="text-align: center;">To ensure Volatility works properly, please have the accompanying webpage open at all times.</h2></center></div>
+    </div>
+    <hr>
+    <div class="row">
+      <div class="col-xs-12 top-buffer bottom-buffer"><center><button class="btn btn-danger" id="web">Open Volatity</button></center></div>
+    </div>
+    <div id="alert" class="alert alert-danger">
+      <center><strong>Volatitity is already currently open</strong></center>
+    </div>
+
   </body>
 
   <script src="resources/javascript/extension.js"></script>
