@@ -20,10 +20,10 @@ var sensitivity = 1.0;
 var mode = true;
 
 // The input volume at time of calibration. Defaults to 0.
-var calibrate_input = 0;
+var calibrateInput = 0;
 
 // The output volume specified by user at time of calibration. Defaults to 20.
-var calibrate_output = 20;
+var calibrateOutput = 20;
 
 // True if newly calibrated. False otherwise.
 var calibrated = false;
@@ -74,7 +74,7 @@ function handleSuccess(stream) {
 
       // Updates calibrated average input volume if newly calibrated.
       if (calibrated) {
-        calibrate_input = averagevol;
+        calibrateInput = averageVol;
         calibrated = false;
       }
 
@@ -87,28 +87,28 @@ function handleSuccess(stream) {
       }
 
       // New output volume given input volume.
-      var new_volume;
+      var newVolume;
       // Calculated increment to adjust volume.
-      var increment = 100 * (averagevol - calibrate_input) * sensitivity * 2.5;
+      var increment = 100 * (averageVol - calibrateInput) * sensitivity * 2.5;
 
       // Changes output volume based on mode.
       if (mode) {
         // As average input volume increases, output volume increases.
-        new_volume = changeVolume(calibrate_output + increment);
+        newVolume = changeVolume(calibrateOutput + increment);
       }
       else {
         // As average input volume increases, output volume decreases.
-        new_volume = changeVolume(calibrate_output - increment);
+        newVolume = changeVolume(calibrateOutput - increment);
       }
 
-      // send message to extension
-      chrome.runtime.sendMessage(new_volume);
+      // Send message to extension
+      chrome.runtime.sendMessage(newVolume);
 
       // Updates text for new volume.
-      $('#volume').text(new_volume);
+      $('#volume').text(newVolume);
 
       // Updates volume progress bar with new volume.
-      $('.progress-bar').css('width', "" + new_volume+ "%").attr('aria-valuenow', new_volume);
+      $('.progress-bar').css('width', "" + newVolume+ "%").attr('aria-valuenow', newVolume);
 
     }, 200);
   });
@@ -119,7 +119,7 @@ function handleError(error) {
   console.log('navigator.getUserMedia error: ', error);
 }
 
-// start analyzing mic input
+// Start analyzing mic input.
 stream = navigator.mediaDevices.getUserMedia(constraints).
     then(handleSuccess).catch(handleError);
 
@@ -127,62 +127,71 @@ var recognition = new webkitSpeechRecognition();
 recognition.continuous = true;
 recognition.interimResults = true;
 
-// when speech that results in words is recognized
+// Count the number of recognized words.
 var count = 0;
+// The minimum words that need to be recognized to change the volume.
+var wordMinimum = 5;
+
+// when speech that results in words is recognized
 recognition.onresult = function(event) {
-    // only change volume if you have 10 recognized words
-    if (count == 5) {
-        var new_volume = min;
-        // send message to extension
-        chrome.runtime.sendMessage(new_volume);
+    // Only change volume if you have detected some minimum number of words.
+    if (count == wordMinimum) {
+        var newVolume = min;
+        // Send message to extension.
+        chrome.runtime.sendMessage(newVolume);
 
         // Updates text for new volume.
-        $('#volume').text(new_volume);
+        $('#volume').text(newVolume);
 
         // Updates volume progress bar with new volume.
-        $('.progress-bar').css('width', "" + new_volume+ "%").attr('aria-valuenow', new_volume);
+        $('.progress-bar').css('width', "" + newVolume+ "%").attr('aria-valuenow', newVolume);
 
+        // Reset count.
         count = 0;
     }
     else {
         count++;
     }
 }
-// when speech is no longer recognized
+// When speech is no longer recognized.
 recognition.onspeechend = function() {
-    var new_volume = calibrate_output;
-    // send message to extension
-    chrome.runtime.sendMessage(new_volume);
+    var newVolume = calibrateOutput;
+    // Send message to extension.
+    chrome.runtime.sendMessage(newVolume);
 
     // Updates text for new volume.
-    $('#volume').text(new_volume);
+    $('#volume').text(newVolume);
 
     // Updates volume progress bar with new volume.
-    $('.progress-bar').css('width', "" + new_volume+ "%").attr('aria-valuenow', new_volume);
+    $('.progress-bar').css('width', "" + newVolume+ "%").attr('aria-valuenow', newVolume);
+
+    // Reset word count.
     count = 0;
+
+    // Restart recognition.
     recognition.stop();
 }
-// restart timer
+// Restart voice recognition on end.
 recognition.onend = function(event) {
     recognition.start();
 }
 
-// reset voice recognition
+// Reset voice recognitions by stopping.
 function resetVoiceRecog() {
     recognition.stop();
 }
 
-// determine which mode is used
+// If mode changes.
 $('#mode:checked').change(
     function(){
-        // if not focus mode, start speech recognition.
+        // If not focus mode, start speech recognition.
         if (!$(this).is(':checked')) {
             clearInterval(interval);
             recognition.start();
-            // to curb 60s limit, reset every 10 s.
+            // To get around default 60s limit, reset every 10 s.
             setInterval(resetVoiceRecog, 10000);
         }
-        // if not, stop speech recognition.
+        // If not, stop speech recognition and return to other stream.
         else {
             recognition.stop();
             stream = navigator.mediaDevices.getUserMedia(constraints).
@@ -190,7 +199,7 @@ $('#mode:checked').change(
         }
 });
 
-// listen for message to turn off service
+// Listen for message to turn off service.
 chrome.runtime.onMessage.addListener(
  function(request, sender) {
   if (request.toggle === true) {
@@ -239,8 +248,8 @@ $(document).ready(function(){
 
     $("#cal").click(function(){
         // Changes calibrated output and input volume.
-        calibrate_output = $("#calvol").val() / 1;
+        calibrateOutput = $("#calvol").val() / 1;
         calibrated = true;
-        //console.log(calibrate_output);
+        //console.log(calibrateOutput);
     });
 });
