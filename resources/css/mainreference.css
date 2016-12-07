@@ -1,5 +1,6 @@
 /*
- *  Copyright (c) 2015 The WebRTC project authors. All Rights Reserved.
+ *  Modified by Jake Cui, Jenny Huang, and Doug Smith.
+ *  Derived from copyright (c) 2015 The WebRTC project authors. All Rights Reserved.
  *
  *  Use of this source code is governed by a BSD-style license
  *  that can be found in the LICENSE file in the root of the source
@@ -20,15 +21,34 @@
   font-weight: 400;
 }
 
+.btn-danger {
+  background-color: #F25753;
+  color: white;
+  border: none;
+  margin: 10px 0 10px 0;
+  height: 30px;
+  font-family:"Avant Garde",Avantgarde,"Century Gothic",CenturyGothic,AppleGothic,sans-serif;
+}
+
+.progress {
+  height: 60px;
+}
+
+.progress-bar {
+    background-color: #F25753;
+}
+
 div#errorMsg p {
   color: #F00;
 }
 
 body {
-  font-family: 'Lato-Thin';
+  font-family: "Avant Garde",Avantgarde,"Century Gothic",CenturyGothic,AppleGothic,sans-serif;
   font-size: 1.5em;
-  font-weight: 300;
+  font-weight: 100;
   background: url(../images/background.jpg);
+  background-size: 130%;
+
 }
 
 a {
@@ -71,25 +91,23 @@ margin: 0 10px 0 0;
 white-space: nowrap;
 }
 
-
-
 button {
-background-color: #DD664D;
+background-color: #F25753;
 border: none;
 border-radius: 2px;
 color: white;
-font-family: 'Roboto', sans-serif;
+font-family: "Avant Garde",Avantgarde,"Century Gothic",CenturyGothic,AppleGothic,sans-serif;
 font-size: 0.8em;
 margin: 0 0 1em 0;
 padding: 0.5em 0.7em 0.6em 0.7em;
 }
 
 button:active {
-background-color: #DD664D;
+background-color: #F25753;
 }
 
 button:hover {
-background-color: #DD664D;
+background-color: #F56963;
 }
 
 button[disabled] {
@@ -107,8 +125,8 @@ canvas {
 }
 
 code {
-font-family: 'Roboto', sans-serif;
-font-weight: 400;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
 }
 
 div#progressbar {
@@ -126,7 +144,7 @@ color: '#DD664D';
 }
 
 div#container2 {
-max-width: 100em;
+max-width: 70em;
 margin: 0 auto 0 auto;
 }
 
@@ -135,21 +153,19 @@ div#links {
 }
 
 h1 {
-font-family: 'Lato-Thin';
-font-weight: 2000;
-font-size: 7em;
+font-family: "Avant Garde",Avantgarde,"Century Gothic",CenturyGothic,AppleGothic,sans-serif;
+font-weight: 550;
+font-size: 2em;
 /*text-transform: uppercase;*/
 /*font-style: /*italic*/;
-
-
 margin: 0 0 0.8em 0;
 padding: 0 0 0.2em 0;
-color: #616068;
+color: black;
 }
 
 h2 {
 color: #444;
-font-size: 1em;
+font-size: 1.2em;
 font-weight: 500;
 line-height: 1.2em;
 margin: 0 0 0.8em 0;
@@ -183,8 +199,11 @@ p {
 color: #444;
 font-weight: 300;
 line-height: 1.6em;
+display: inline;
 }
-
+p2{
+  line-height: 2em;
+}
 p.uppercase {
     text-transform: uppercase;
 }
@@ -231,9 +250,3 @@ h1 span {
 strong {
   font-weight: 500;
 }
-
-textarea {
-  font-family: 'Lato';
-}
-
-

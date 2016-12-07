@@ -1,12 +1,12 @@
 body {
     min-width: 320px;
     overflow-x: hidden;
-    font-family: Arial, sans-serif;
+    font-family: "Avant Garde",Avantgarde,"Century Gothic",CenturyGothic,AppleGothic,sans-serif;
     font-size: 12px;
 }
 
 h1 {
-  font-family: 'Roboto', sans-serif;
+  font-family: "Avant Garde",Avantgarde,"Century Gothic",CenturyGothic,AppleGothic,sans-serif;
   font-weight: 500;
   font-size: 20px;
   margin: 0 0 0.8em 0;
@@ -14,16 +14,32 @@ h1 {
 }
 
 h2 {
-  font-family: 'Roboto', sans-serif;
+  font-family: "Avant Garde",Avantgarde,"Century Gothic",CenturyGothic,AppleGothic,sans-serif;
   font-weight: 500;
-  font-size: 15px;
+  font-size: 12px;
   margin: 0 0 0.8em 0;
-  padding: 0 0 0.2em 0;
+  padding: 0 0 0.3em 0;
   text-align: right;
 }
 
 #icon {
   width: 40px;
+}
+
+.alert {
+  margin-bottom: 0px;
+}
+
+.alert-danger {
+  background-color: #F25753;
+  color: white;
+  border: none;
+}
+
+.btn-danger {
+  background-color: #F25753;
+  color: white;
+  border: none;
 }
 
 .top-buffer {
@@ -40,9 +56,5 @@ h2 {
 
 hr {
   margin-top: 0px;
-  margin-bottom: 0px;
-}
-
-.alert {
   margin-bottom: 0px;
 }
