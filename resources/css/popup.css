@@ -1,3 +1,23 @@
+.btn-danger {
+  background-color: #F25753;
+  color: white;
+  border: none;
+  height: 30px;
+  border-radius: 3px;
+}
+
+.top-buffer {
+  margin-top: 20px;
+}
+
+.top-buffer1 {
+  margin-top: 12px;
+}
+
+.bottom-buffer {
+  margin-bottom: 20px;
+}
+
 body {
     min-width: 320px;
     overflow-x: hidden;
@@ -30,41 +50,11 @@ h3 {
   color: #F25753;
 }
 
-#icon {
-  width: 40px;
-}
-
-.alert {
-  margin-bottom: 0px;
-}
-
-.alert-danger {
-  background-color: #F25753;
-  color: white;
-  border: none;
-}
-
-.btn-danger {
-  background-color: #F25753;
-  color: white;
-  border: none;
-  height: 30px;
-  border-radius: 3px;
-}
-
-.top-buffer {
-  margin-top: 20px;
-}
-
-.top-buffer1 {
-  margin-top: 12px;
-}
-
-.bottom-buffer {
-  margin-bottom: 20px;
-}
-
 hr {
   margin-top: 0px;
   margin-bottom: 0px;
+}
+
+#icon {
+  width: 40px;
 }
