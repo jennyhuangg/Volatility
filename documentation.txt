@@ -1,4 +1,4 @@
-CS50 Final Project Documentation
+CS50 Final Project: Documentation
 Doug Smith, Jake Cui, Jenny Huang
 
 This project is called Volatility.  Its aim is to automate volume adjustment
