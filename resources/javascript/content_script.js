@@ -1,3 +1,8 @@
+/*
+ *  Jake Cui, Doug Smith, and Jenny Huang
+ *  CS50 Final Project: javascript for Volatility chrome extension
+ */
+ 
 // retrieve all audio tags on current page
 var audioTags = document.getElementsByTagName("audio");
 

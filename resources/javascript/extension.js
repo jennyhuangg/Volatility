@@ -1,3 +1,8 @@
+/*
+ *  Jake Cui, Doug Smith, and Jenny Huang
+ *  CS50 Final Project: javascript for Volatility chrome extension
+ */
+
 // add an event listener to the open volatility button in the extension popup
 $("#web").click(function(){
   // query tabs for Volatility page

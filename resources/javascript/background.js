@@ -1,3 +1,8 @@
+/*
+ *  Jake Cui, Doug Smith, and Jenny Huang
+ *  CS50 Final Project: javascript for Volatility chrome extension
+ */
+ 
 // listen for a message from the volatility webpage
 chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
   console.log(message);
