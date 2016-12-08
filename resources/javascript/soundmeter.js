@@ -6,6 +6,11 @@
  *  tree.
  */
 
+/*
+ * This code was modified from https://github.com/webrtc/samples/blob/gh-pages/src/content/getusermedia/volume/js/soundmeter.js
+ */
+
+
 'use strict';
 
 // Meter class that generates a number correlated to audio volume.
@@ -14,6 +19,10 @@
 // It also reports on the fraction of samples that were at or near
 // the top of the measurement range.
 
+
+// OUR OWN CODE
+// create a queue that will hold the amplitude of audio input for the last ten
+// seconds
 var queue = [];
 var timeLength = 10;
 
@@ -22,6 +31,7 @@ for(var i = 0; i < timeLength * 1000 / 50; i++)
   queue.push(0);
 }
 
+// OUR OWN FUNCTION
 // Calculates the average of a given array/queue
 function calculateAverage(array)
 {
@@ -33,6 +43,8 @@ function calculateAverage(array)
   return count/array.length;
 }
 
+
+// THEIR FUNCTION
 function SoundMeter(context) {
   this.context = context;
   this.instant = 0.0;
@@ -55,17 +67,17 @@ function SoundMeter(context) {
       }
     }
     that.instant = Math.sqrt(sum / input.length);
-    // Calculates volume average from the past 2 seconds
 
-    // that.slow = 0.95 * that.slow + 0.05 * that.instant;
-
+    // OUR CODE
+    // add new instant volume and remove earliest volume level from queue
     queue.push(that.instant);
     queue.shift();
-
+    // set slow to the average volume of the last 10 seconds
     that.slow = calculateAverage(queue);
   };
 }
 
+// THEIR FUNCTION
 SoundMeter.prototype.connectToSource = function(stream, callback) {
   console.log('SoundMeter connecting');
   try {
