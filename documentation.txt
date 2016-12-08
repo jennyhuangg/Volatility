@@ -1,0 +1,57 @@
+CS50 Final Project: Documentation
+Doug Smith, Jake Cui, Jenny Huang
+
+This project is called Volatility.  Its aim is to automate volume adjustment
+while playing music, specifically on YouTube. It is a Chrome extension that
+adjusts the volume of YouTube videos in Chrome based upon the ambient noise of
+a user's surroundings or whether talking is detected, depending upon the mode
+selected.
+
+To install this extension, download the source code and open up chrome.  Go to
+"chrome://extensions/", and check "Developer Mode" on the top right corner of
+the page if it is not already checked.  Now, select "Load unpacked extension..."
+and when the popup appears, navigate to the folder that contains the source code
+and click "select".  You have now installed the Volatility extension, and its
+icon should appear to the right of the address/search bar in the extension bar.
+
+To use the Volatility extension, click on its icon in the extension bar and
+when the popup appears, select "Open Volatility". A new tab should now open in
+chrome that is the Volatility dashboard.  This webpage needs to be open whenever
+you want Volatility to automatically adjust the volume.  Otherwise, the
+extension cannot access microphone input.  When loaded, the page will request to
+access the microphone. Click allow so that Volatility can work properly.
+Volatility is now set up to work properly.
+
+Once you have opened the Volatility webpage, to have Volatility dynamically
+adjust volume, open any YouTube video and click play.  On the YouTube page, the
+volume slider of the video will not adjust, but the volume is adjusting based
+upon ambient noise or speech detection.  To see the current volume, either
+look at the progress bar on the Volatility webpage or look at the console of the
+current YouTube page.
+
+Now, I will give a brief description of the settings at the bottom of the
+Volatility page.
+
+Focus Mode: This mode adjusts volume based upon ambient noise levels.  It can
+be enabled by setting the "Mode" toggle to "Focus".
+
+Talking Mode: This mode adjusts volume based upon speech detection.  It can be
+enabled by setting the "Mode" toggle to "Talking".
+
+Minimum Volume: This is the minimum volume that Volatility will adjust to.  In
+Talking Mode, this is the volume the video will adjust to when speech is
+detected.
+
+Maximum Volume: This is the maximum value that Volatility will adjust to. For
+instance, setting the maximum volume to 50 will cause the volume output of all
+videos to be no greater than 50.
+
+Sensitivity: This value determines how much the ambient noise level will affect
+output volume level.  Any value less than 1 lowers the sensitivity while any
+value greater than 1 raises the sensitivity.  The recommended range of values
+for this setting is 0 to 2.
+
+Desired Volume: This is the desired volume that the user wants.  The Volatility
+algorithm will based its volume calculations off of this and the ambient noise
+level or speech detection.  In talking mode, this is the volume that will be
+used when no speech is detected.

@@ -4,6 +4,10 @@
  *  Credits to the WebRTC project authors for API.
  */
 
+ /*
+  * This code was modified from https://github.com/webrtc/samples/blob/gh-pages/src/content/getusermedia/volume/js/main.js
+  */
+
 // Declaration of global variables
 // ============================================================================================================ //
 
@@ -32,6 +36,7 @@ var calibrated = false;
 // Attempts to initialize audio input. Returns an error if unsuccessful.
 // ============================================================================================================ //
 
+// START THEIR CODE
 try {
   window.AudioContext = window.AudioContext || window.webkitAudioContext;
   window.audioContext = new AudioContext();
@@ -46,11 +51,16 @@ var constraints = window.constraints = {
   audio: true,
   video: false
 };
+// END THEIR CODE
+
 
 // declare interval variable so we can stop taking mic input later on
 var interval = null;
 
-// Runs if the mic audio stream is successfully created for focus mode.
+
+// START THEIR CODE
+// Runs if the mic audio stream is successfully created.
+
 // ============================================================================================================ //
 
 function handleSuccess(stream) {
@@ -63,8 +73,9 @@ function handleSuccess(stream) {
       alert(e);
       return;
     }
+    // END THEIR CODE
 
-    interval = setInterval(function() {
+      interval = setInterval(function() {
 
       // Sets the queried variables to the detected input amplitude.
       $("#instantvol").text((soundMeter.instant).toFixed(2));
@@ -78,28 +89,15 @@ function handleSuccess(stream) {
         calibrated = false;
       }
 
-      // Adjusts the mode based on toggle.
-      if ($("#mode:checked").val() == "on") {
-        mode = true;
-      }
-      else {
-        mode = false;
-      }
-
       // New output volume given input volume.
       var newVolume;
       // Calculated increment to adjust volume.
       var increment = 100 * (averageVol - calibrateInput) * sensitivity * 2.5;
 
       // Changes output volume based on mode.
-      if (mode) {
-        // As average input volume increases, output volume increases.
-        newVolume = changeVolume(calibrateOutput + increment);
-      }
-      else {
-        // As average input volume increases, output volume decreases.
-        newVolume = changeVolume(calibrateOutput - increment);
-      }
+      // As average input volume increases, output volume increases.
+      newVolume = changeVolume(calibrateOutput + increment);
+
 
       // Send message to extension
       chrome.runtime.sendMessage(newVolume);
@@ -114,6 +112,7 @@ function handleSuccess(stream) {
   });
 }
 
+// START THEIR CODE
 // If audio detection is not properly created.
 function handleError(error) {
   console.log('navigator.getUserMedia error: ', error);
@@ -125,6 +124,8 @@ function handleError(error) {
 // Start analyzing mic input.
 stream = navigator.mediaDevices.getUserMedia(constraints).
     then(handleSuccess).catch(handleError);
+// END THEIR CODE
+
 
 var recognition = new webkitSpeechRecognition();
 recognition.continuous = true;
@@ -184,10 +185,7 @@ function resetVoiceRecog() {
     recognition.stop();
 }
 
-// Switches focus mode / talking mode.
-// ============================================================================================================ //
-
-// If mode changes.
+// Event listener for mode changing.
 $('#mode:checked').change(
     function(){
         // If not focus mode, start speech recognition.
