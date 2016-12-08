@@ -50,7 +50,7 @@ var constraints = window.constraints = {
 // declare interval variable so we can stop taking mic input later on
 var interval = null;
 
-// Runs if the mic audio stream is successfully created.
+// Runs if the mic audio stream is successfully created for focus mode.
 // ============================================================================================================ //
 
 function handleSuccess(stream) {
@@ -119,6 +119,9 @@ function handleError(error) {
   console.log('navigator.getUserMedia error: ', error);
 }
 
+// Runs mic audio speech recognition detection for talking mode.
+// ============================================================================================================ //
+
 // Start analyzing mic input.
 stream = navigator.mediaDevices.getUserMedia(constraints).
     then(handleSuccess).catch(handleError);
@@ -181,6 +184,9 @@ function resetVoiceRecog() {
     recognition.stop();
 }
 
+// Switches focus mode / talking mode.
+// ============================================================================================================ //
+
 // If mode changes.
 $('#mode:checked').change(
     function(){
@@ -199,7 +205,10 @@ $('#mode:checked').change(
         }
 });
 
-// Listen for message to turn off service.
+// Turns service on/off.
+// ============================================================================================================ //
+
+// Listens for message.
 chrome.runtime.onMessage.addListener(
  function(request, sender) {
   if (request.toggle === true) {
@@ -212,7 +221,6 @@ chrome.runtime.onMessage.addListener(
     clearInterval(interval);
   }
 });
-
 
 // Functions used throughout the rest of the program.
 // ============================================================================================================ //
