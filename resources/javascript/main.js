@@ -119,7 +119,7 @@ function handleError(error) {
   console.log('navigator.getUserMedia error: ', error);
 }
 
-// Runs mic audio speech recognition detection for talking mode.
+// Sets up audio speech recognition detection for talking mode.
 // ============================================================================================================ //
 
 // Start analyzing mic input.
