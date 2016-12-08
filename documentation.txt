@@ -52,6 +52,6 @@ value greater than 1 raises the sensitivity.  The recommended range of values
 for this setting is 0 to 2.
 
 Desired Volume: This is the desired volume that the user wants.  The Volatility
-algorithm will based its volume calculations off of this and the ambient noise
+algorithm will base its volume calculations off of this and the ambient noise
 level or speech detection.  In talking mode, this is the volume that will be
 used when no speech is detected.
